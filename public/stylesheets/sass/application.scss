@@ -470,6 +470,44 @@ body {
   .section {
     margin-bottom: 1.5em;
 
+    &#flash {
+      margin-left: auto;
+      margin-right: auto;
+      width: 50%;
+      position: relative;
+
+      & .close {
+        text-indent : -5000px;
+        background : transparent url( /images/icons/close.png ) no-repeat 0 0;
+        width : 16px;
+        height : 16px;
+        cursor : pointer;
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+
+      p {
+        padding-left : 20px;
+        background : transparent url() no-repeat 0 0%;
+      }
+      &.success {
+        p {
+          background-image : url( /images/icons/unchanged.png );
+        }
+      }
+      &.warning {
+        p {
+          background-image : url( /images/icons/warning.png );
+        }
+      }
+      &.failure {
+        p {
+          background-image : url( /images/icons/failed.png );
+        }
+      }
+    }
+
     &.error {
       @include icony_section('failed',
         #433, #FCC,
@@ -503,28 +541,6 @@ body {
         #444, #CCC,
         #333, #DDD,
         #CCC);
-    }
-
-    &#flash {
-      margin-left: auto;
-      margin-right: auto;
-      width: 50%;
-      position: relative;
-
-      & .close {
-        text-indent : -5000px;
-        background : transparent url( /images/icons/close.png ) no-repeat 0 0;
-        width : 16px;
-        height : 16px;
-        cursor : pointer;
-        position: absolute;
-        top: 0;
-        right: 0;
-      }
-
-      & img {
-      vertical-align: top;
-      }
     }
   }
 
