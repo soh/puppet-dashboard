@@ -368,6 +368,11 @@ body {
       width: 50%;
       position: relative; }
       body .section#flash .close {
+        text-indent: -5000px;
+        background: transparent url(/images/icons/close.png) no-repeat 0 0;
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
         position: absolute;
         top: 0;
         right: 0; }

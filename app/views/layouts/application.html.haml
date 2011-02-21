@@ -24,7 +24,7 @@
         - [:success, :warning, :failure].each do |type|
           - if message = flash[type]
             %div.section#flash{:class => type}
-              .close= link_to_function icon(:close), "jQuery('#flash').hide()"
+              %a.close Close
               %p
                 = icon(type)
                 = message
