@@ -1,7 +1,9 @@
+require 'pathname'
+
 namespace :puppet do
   namespace :plugin do
     desc "Copy the migrations from a Puppet plugin into db/migrate"
-    task :copy_migration do
+    task :stage do
       unless plugin_name = ENV['PLUGIN']
         raise "Must specify a plugin name using PLUGIN=..."
       end
@@ -20,10 +22,20 @@ namespace :puppet do
 
         FileUtils.cp source_file, "db/migrate/#{base_file_name}"
       end
+
+      Dir.glob(File.join(plugin_dir, 'public', '**')) do |source_file|
+        relative_name = source_file.sub(/^#{Rails.root}/, '..')
+        target_name = File.join(Rails.root, source_file.sub(/^#{plugin_dir}\//, ''))
+
+        if File.symlink?(target_name) && Pathname.new(target_name).realpath.to_s != source_file
+          FileUtils.rm target_name
+        end
+        FileUtils.ln_s relative_name, target_name unless File.symlink? target_name
+      end
     end
 
     desc "Install a Dashboard plug-in"
-    task :install => [:create_installed_semaphore, :copy_migration, "db:migrate"]
+    task :install => [:create_installed_semaphore, :stage, "db:migrate"]
 
     desc "Create the semaphore file to indicate that a plugin is installed"
     task :create_installed_semaphore do
